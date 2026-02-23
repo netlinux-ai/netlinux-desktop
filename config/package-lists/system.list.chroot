@@ -12,3 +12,8 @@ build-essential
 dkms
 firmware-linux
 firmware-linux-nonfree
+grub-efi-amd64-signed
+shim-signed
+live-boot
+live-config
+live-config-systemd
