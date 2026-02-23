@@ -16,12 +16,10 @@ lb config noauto \
     --iso-publisher "NetLinux https://netlinux.co.uk" \
     --iso-volume "NetLinux Desktop" \
     --apt-indices false \
-    --security true \
+    --security false \
     --firmware-chroot true \
     --mirror-bootstrap http://deb.debian.org/debian \
     --mirror-chroot http://deb.debian.org/debian \
-    --mirror-chroot-security http://security.debian.org/debian-security \
     --mirror-binary http://deb.debian.org/debian \
-    --mirror-binary-security http://security.debian.org/debian-security \
     --initsystem systemd \
     "${@}"
