@@ -28,7 +28,7 @@ fi
 # Install live-build if needed
 if ! command -v lb &>/dev/null; then
     echo ">>> Installing live-build..."
-    apt-get update
+    apt-get update -o Acquire::AllowInsecureRepositories=true || true
     apt-get install -y live-build
 fi
 
