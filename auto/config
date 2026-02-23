@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+lb config noauto \
+    --distribution bookworm \
+    --archive-areas "main contrib non-free non-free-firmware" \
+    --architectures amd64 \
+    --linux-packages "linux-image linux-headers" \
+    --linux-flavours "6.19.0-g3c13c881adf4" \
+    --binary-images iso-hybrid \
+    --bootloaders "grub-efi,syslinux" \
+    --memtest none \
+    --iso-application "NetLinux Desktop" \
+    --iso-publisher "NetLinux; https://netlinux.co.uk" \
+    --iso-volume "NetLinux Desktop" \
+    --image-name "netlinux-desktop" \
+    --apt-indices false \
+    --security true \
+    --updates true \
+    --firmware-chroot true \
+    "${@}"

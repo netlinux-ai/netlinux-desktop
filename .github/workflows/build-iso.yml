@@ -1,0 +1,60 @@
+name: Build NetLinux Desktop ISO
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize disk space
+        uses: easimon/maximize-build-space@v10
+        with:
+          root-reserve-mb: 512
+          swap-size-mb: 1024
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y live-build debootstrap imagemagick wget
+
+      - name: Download GPG key
+        run: |
+          wget -q -O config/archives/netlinux.key.chroot \
+            https://packages.netlinux.co.uk/debian/repo-key.gpg
+          cp config/archives/netlinux.key.chroot config/archives/netlinux.key.binary
+
+      - name: Generate branding
+        run: sudo bash branding/generate-branding.sh
+
+      - name: Make auto scripts executable
+        run: chmod +x auto/*
+
+      - name: Build ISO
+        run: |
+          sudo lb config
+          sudo lb build
+
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: netlinux-desktop-iso
+          path: netlinux-desktop-*.iso
+          retention-days: 7
+
+      - name: Upload to release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: netlinux-desktop-*.iso

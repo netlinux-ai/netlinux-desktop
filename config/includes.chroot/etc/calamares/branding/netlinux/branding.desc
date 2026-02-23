@@ -1,0 +1,33 @@
+---
+componentName: netlinux
+
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+
+strings:
+    productName:         "NetLinux Desktop"
+    shortProductName:    "NetLinux"
+    version:             "1.0"
+    shortVersion:        "1.0"
+    versionedName:       "NetLinux Desktop 1.0"
+    shortVersionedName:  "NetLinux 1.0"
+    bootloaderEntryName: "NetLinux Desktop"
+    productUrl:          "https://netlinux.co.uk"
+    supportUrl:          "https://netlinux.co.uk/support"
+    knownIssuesUrl:      "https://github.com/netlinux-ai/netlinux-desktop/issues"
+    releaseNotesUrl:     "https://github.com/netlinux-ai/netlinux-desktop/releases"
+
+images:
+    productLogo:         "netlinux-logo.png"
+    productIcon:         "netlinux-logo.png"
+    productWelcome:      "netlinux-welcome.png"
+
+style:
+    sidebarBackground:   "#0a0a0a"
+    sidebarText:         "#00e87b"
+    sidebarTextSelect:   "#ffffff"
+    sidebarTextHighlight: "#00e87b"
+
+slideshow: "show.qml"
+
+slideshowAPI: 2

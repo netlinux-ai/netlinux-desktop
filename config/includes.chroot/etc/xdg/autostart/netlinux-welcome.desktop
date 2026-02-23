@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=NetLinux Welcome
+Comment=Welcome to NetLinux Desktop
+Exec=xterm -T "Welcome to NetLinux" -fa "DejaVu Sans Mono" -fs 12 -fg "#00e87b" -bg "#0a0a0a" -e bash -c 'echo ""; echo "  Welcome to NetLinux Desktop"; echo "  ==========================="; echo ""; echo "  Linux Engineering. Applied AI. Energy Decarbonisation."; echo ""; echo "  Kernel: $(uname -r)"; echo "  Desktop: Xfce $(xfce4-panel --version 2>/dev/null | head -1 | grep -oP \"[0-9]+\\.[0-9]+\\.?[0-9]*\" || echo "4.x")"; echo ""; echo "  To install NetLinux to disk, run: calamares"; echo "  Or find \"Install NetLinux\" in the applications menu."; echo ""; echo "  Press Enter to close..."; read'
+Icon=/usr/share/pixmaps/netlinux-logo.png
+Terminal=false
+Categories=System;
+X-GNOME-Autostart-enabled=true
+OnlyShowIn=XFCE;

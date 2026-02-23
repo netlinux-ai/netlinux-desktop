@@ -1,0 +1,14 @@
+openssh-server
+bridge-utils
+net-tools
+sudo
+curl
+wget
+git
+htop
+vim
+bash-completion
+build-essential
+dkms
+firmware-linux
+firmware-linux-nonfree

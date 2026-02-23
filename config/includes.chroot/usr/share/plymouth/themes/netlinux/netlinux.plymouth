@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=NetLinux
+Description=NetLinux Desktop boot splash
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/netlinux
+ScriptFile=/usr/share/plymouth/themes/netlinux/netlinux.script
