@@ -1,0 +1,14 @@
+Explanation: Default low priority for NetLinux repo to prevent Ubuntu-built packages from overriding Debian bookworm packages
+Package: *
+Pin: origin packages.netlinux.co.uk
+Pin-Priority: 100
+
+Explanation: High priority for NetLinux kernel
+Package: linux-image-* linux-headers-*
+Pin: origin packages.netlinux.co.uk
+Pin-Priority: 900
+
+Explanation: High priority for NetLinux packages that work on bookworm
+Package: chromium-browser-stable konqueror kio-rsync openbox rsync pavucontrol qpwgraph simplescreenrecorder tightvnc curaengine claude-code applesmc-next-dkms battery-tray
+Pin: origin packages.netlinux.co.uk
+Pin-Priority: 900
