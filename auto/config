@@ -6,7 +6,8 @@ lb config noauto \
     --distribution bookworm \
     --archive-areas "main contrib non-free non-free-firmware" \
     --architectures amd64 \
-    --linux-packages none \
+    --linux-packages "linux-image linux-headers" \
+    --linux-flavours "6.19.0-g3c13c881adf4" \
     --binary-images iso-hybrid \
     --bootloader syslinux \
     --memtest none \
@@ -16,7 +17,8 @@ lb config noauto \
     --iso-volume "NetLinux Desktop" \
     --apt-indices false \
     --security false \
-    --firmware-chroot true \
+    --firmware-chroot false \
+    --firmware-binary false \
     --mirror-bootstrap http://deb.debian.org/debian \
     --mirror-chroot http://deb.debian.org/debian \
     --mirror-binary http://deb.debian.org/debian \
