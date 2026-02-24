@@ -5,6 +5,13 @@ set -e
 
 echo ">>> NetLinux: Applying customisations..."
 
+# Generate initramfs for NetLinux kernel (the package doesn't auto-generate it)
+KVER=$(ls /lib/modules/ | grep -m1 '6.19' || true)
+if [ -n "$KVER" ] && [ ! -f "/boot/initrd.img-${KVER}" ]; then
+    echo ">>> Generating initramfs for kernel ${KVER}..."
+    update-initramfs -c -k "${KVER}" || true
+fi
+
 # Set Plymouth default theme
 if [ -d /usr/share/plymouth/themes/netlinux ]; then
     # Copy logo for Plymouth
@@ -12,7 +19,10 @@ if [ -d /usr/share/plymouth/themes/netlinux ]; then
         cp /usr/share/pixmaps/netlinux-logo.png /usr/share/plymouth/themes/netlinux/
     fi
     plymouth-set-default-theme netlinux || true
-    update-initramfs -u || true
+    # Rebuild initramfs with plymouth theme
+    if [ -n "$KVER" ]; then
+        update-initramfs -u -k "${KVER}" || true
+    fi
 fi
 
 # Pin NetLinux kernel — prevent Debian stock kernel from being pulled in as a dependency
