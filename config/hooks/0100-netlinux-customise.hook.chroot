@@ -1,0 +1,105 @@
+#!/bin/bash
+# NetLinux Desktop chroot customisation hook
+# Runs inside the chroot during live-build
+set -e
+
+echo ">>> NetLinux: Applying customisations..."
+
+# Generate initramfs for NetLinux kernel (the package doesn't auto-generate it)
+KVER=$(ls /lib/modules/ | grep -m1 '6.19' || true)
+if [ -n "$KVER" ] && [ ! -f "/boot/initrd.img-${KVER}" ]; then
+    echo ">>> Generating initramfs for kernel ${KVER}..."
+    update-initramfs -c -k "${KVER}" || true
+fi
+
+# Set Plymouth default theme
+if [ -d /usr/share/plymouth/themes/netlinux ]; then
+    # Copy logo for Plymouth
+    if [ -f /usr/share/pixmaps/netlinux-logo.png ]; then
+        cp /usr/share/pixmaps/netlinux-logo.png /usr/share/plymouth/themes/netlinux/
+    fi
+    plymouth-set-default-theme netlinux || true
+    # Rebuild initramfs with plymouth theme
+    if [ -n "$KVER" ]; then
+        update-initramfs -u -k "${KVER}" || true
+    fi
+fi
+
+# Pin NetLinux kernel — prevent Debian stock kernel from being pulled in as a dependency
+cat > /etc/apt/preferences.d/netlinux-kernel << 'PINEOF'
+# Prefer NetLinux kernel packages
+Package: linux-image-*
+Pin: origin packages.netlinux.co.uk
+Pin-Priority: 900
+
+Package: linux-headers-*
+Pin: origin packages.netlinux.co.uk
+Pin-Priority: 900
+
+# De-prioritise Debian stock kernels
+Package: linux-image-amd64 linux-image-6.1*
+Pin: release o=Debian
+Pin-Priority: 100
+PINEOF
+
+# Enable openssh-server
+systemctl enable ssh.service || true
+
+# Set default session to Xfce for LightDM
+if [ -f /etc/lightdm/lightdm.conf ]; then
+    sed -i 's/^#\?user-session=.*/user-session=xfce/' /etc/lightdm/lightdm.conf
+else
+    mkdir -p /etc/lightdm
+    cat > /etc/lightdm/lightdm.conf << 'LDMEOF'
+[Seat:*]
+user-session=xfce
+autologin-user=user
+autologin-user-timeout=0
+LDMEOF
+fi
+
+# Create desktop entry for Calamares installer
+mkdir -p /usr/share/applications
+cat > /usr/share/applications/install-netlinux.desktop << 'CALAEOF'
+[Desktop Entry]
+Type=Application
+Name=Install NetLinux Desktop
+GenericName=System Installer
+Comment=Install NetLinux Desktop to disk
+Exec=pkexec calamares
+Icon=calamares
+Terminal=false
+Categories=System;
+Keywords=install;system;
+CALAEOF
+
+# Create autostart for install mode (triggered by boot parameter)
+mkdir -p /etc/xdg/autostart
+cat > /etc/xdg/autostart/calamares-install-mode.desktop << 'AUTOEOF'
+[Desktop Entry]
+Type=Application
+Name=NetLinux Installer
+Exec=sh -c 'if grep -q install-netlinux /proc/cmdline; then sleep 3 && pkexec calamares; fi'
+Terminal=false
+Hidden=false
+OnlyShowIn=XFCE;
+AUTOEOF
+
+# Configure live user for the live session
+# live-build typically creates a 'user' account; ensure it has sudo
+if ! grep -q "^user " /etc/sudoers 2>/dev/null; then
+    echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+fi
+
+# Set terminal green prompt for root and skeleton
+for rc in /root/.bashrc /etc/skel/.bashrc; do
+    if [ -f "$rc" ]; then
+        cat >> "$rc" << 'BASHEOF'
+
+# NetLinux prompt
+PS1='\[\033[38;2;0;232;123m\]\u@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\$ '
+BASHEOF
+    fi
+done
+
+echo ">>> NetLinux: Customisation complete."
