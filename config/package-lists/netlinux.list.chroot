@@ -1,11 +1,12 @@
 claude-code
 applesmc-next-dkms
 battery-tray
-
-# Available from Debian bookworm repos (added to desktop/system lists instead):
-# openbox, konqueror, rsync, pavucontrol, xterm, etc.
-
-# Need rebuilding for Debian bookworm (Ubuntu t64 deps):
-# chromium-browser-stable, gimp, blender, xfwm4, xfce4-panel,
-# x11vnc, fstl, kio-rsync, kio-extras, simplescreenrecorder,
-# tightvnc, qpwgraph, curaengine
+x11vnc
+tightvnc
+fstl
+kio-rsync
+kio-extras
+simplescreenrecorder
+qpwgraph
+curaengine
+rsync

@@ -1,5 +1,7 @@
 xfce4
 xfce4-goodies
+xfwm4
+xfce4-panel
 lightdm
 lightdm-gtk-greeter
 xorg
@@ -10,7 +12,7 @@ thunar
 thunar-archive-plugin
 mousepad
 ristretto
-firefox-esr
+chromium-browser-stable
 file-roller
 gvfs
 gvfs-backends
