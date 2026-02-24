@@ -16,6 +16,7 @@ grub-efi-amd64-signed
 shim-signed
 isolinux
 syslinux-common
+syslinux-utils
 live-boot
 live-config
 live-config-systemd

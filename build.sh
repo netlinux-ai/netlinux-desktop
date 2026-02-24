@@ -72,6 +72,13 @@ lb config
 echo ">>> Building ISO (this will take 20-40 minutes)..."
 lb build 2>&1 | tee build.log
 
+# Rename default live-build output to NetLinux name
+if [[ -f binary.hybrid.iso ]]; then
+    mv binary.hybrid.iso netlinux-desktop-amd64.hybrid.iso
+elif [[ -f binary.iso ]]; then
+    mv binary.iso netlinux-desktop-amd64.iso
+fi
+
 # Report result
 ISO_FILE=$(ls -1 netlinux-desktop-*.iso 2>/dev/null | head -1)
 if [[ -n "$ISO_FILE" ]]; then
