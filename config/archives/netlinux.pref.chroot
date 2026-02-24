@@ -8,7 +8,7 @@ Package: linux-image-* linux-headers-*
 Pin: origin packages.netlinux.co.uk
 Pin-Priority: 900
 
-Explanation: High priority for all NetLinux custom packages
-Package: claude-code applesmc-next-dkms battery-tray chromium-browser-stable gimp blender xfwm4 xfce4-panel x11vnc tightvnc fstl kio-rsync kio-extras simplescreenrecorder qpwgraph curaengine openbox konqueror xterm pavucontrol rsync
+Explanation: High priority for NetLinux packages verified to install on bookworm
+Package: claude-code applesmc-next-dkms battery-tray chromium-browser-stable tightvnc kio-rsync simplescreenrecorder qpwgraph curaengine rsync pavucontrol
 Pin: origin packages.netlinux.co.uk
 Pin-Priority: 900

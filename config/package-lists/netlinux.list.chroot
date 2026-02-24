@@ -1,12 +1,11 @@
 claude-code
 applesmc-next-dkms
 battery-tray
-x11vnc
+chromium-browser-stable
 tightvnc
-fstl
 kio-rsync
-kio-extras
 simplescreenrecorder
 qpwgraph
 curaengine
 rsync
+pavucontrol

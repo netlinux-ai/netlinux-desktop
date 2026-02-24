@@ -14,12 +14,10 @@ fi
 
 # Set Plymouth default theme
 if [ -d /usr/share/plymouth/themes/netlinux ]; then
-    # Copy logo for Plymouth
     if [ -f /usr/share/pixmaps/netlinux-logo.png ]; then
         cp /usr/share/pixmaps/netlinux-logo.png /usr/share/plymouth/themes/netlinux/
     fi
     plymouth-set-default-theme netlinux || true
-    # Rebuild initramfs with plymouth theme
     if [ -n "$KVER" ]; then
         update-initramfs -u -k "${KVER}" || true
     fi
@@ -86,7 +84,6 @@ OnlyShowIn=XFCE;
 AUTOEOF
 
 # Configure live user for the live session
-# live-build typically creates a 'user' account; ensure it has sudo
 if ! grep -q "^user " /etc/sudoers 2>/dev/null; then
     echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 fi
@@ -101,5 +98,16 @@ PS1='\[\033[38;2;0;232;123m\]\u@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\$ '
 BASHEOF
     fi
 done
+
+# Remove Chromium browser APT repo added by chromium-browser-stable postinst
+# It causes GPG/signing errors during the binary stage apt-get update
+rm -f /etc/apt/sources.list.d/chromium-browser.list
+rm -f /etc/apt/sources.list.d/chromium-browser.list.save
+rm -f /etc/apt/sources.list.d/chromium-browser-stable.list
+rm -f /etc/apt/sources.list.d/google-chrome.list
+rm -f /etc/apt/trusted.gpg.d/chromium-browser.gpg
+rm -f /etc/cron.daily/chromium-browser
+rm -f /etc/cron.daily/google-chrome
+echo '>>> NetLinux: Removed Chromium/Chrome APT repos.'
 
 echo ">>> NetLinux: Customisation complete."

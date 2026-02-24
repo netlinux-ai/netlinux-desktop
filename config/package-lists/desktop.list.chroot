@@ -1,7 +1,5 @@
 xfce4
 xfce4-goodies
-xfwm4
-xfce4-panel
 lightdm
 lightdm-gtk-greeter
 xorg
@@ -12,7 +10,6 @@ thunar
 thunar-archive-plugin
 mousepad
 ristretto
-chromium-browser-stable
 file-roller
 gvfs
 gvfs-backends
@@ -24,6 +21,5 @@ plymouth-themes
 openbox
 konqueror
 xterm
-pavucontrol
 gimp
 blender
