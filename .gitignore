@@ -1,0 +1,17 @@
+build.log
+nightly.log
+binary/
+binary.*
+cache/
+chroot/
+chroot.*
+.build/
+*.iso
+*.hybrid.iso
+.nightly-last-commit
+meta-package/*.deb
+config/binary
+config/bootstrap
+config/chroot
+config/common
+config/source

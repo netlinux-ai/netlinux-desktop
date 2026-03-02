@@ -1,0 +1,35 @@
+name: Build NetLinux Desktop Meta-Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+    paths:
+      - 'meta-package/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build meta-package
+        run: bash meta-package/build-meta.sh
+
+      - name: Verify .deb
+        run: dpkg-deb --info meta-package/netlinux-desktop_*_all.deb
+
+      - name: Upload .deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: netlinux-desktop-meta-deb
+          path: meta-package/netlinux-desktop_*_all.deb
+          retention-days: 30
+
+      - name: Upload to release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: meta-package/netlinux-desktop_*_all.deb
