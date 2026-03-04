@@ -1,14 +1,15 @@
 Package: netlinux-desktop
-Version: 1.0-1netlinux1
+Version: 1.2-1netlinux1
 Section: metapackages
 Priority: optional
 Architecture: all
-Depends: xfce4, xfce4-goodies, lightdm, lightdm-gtk-greeter, xorg, pulseaudio, network-manager, network-manager-gnome, thunar, thunar-archive-plugin, mousepad, ristretto, file-roller, gvfs, gvfs-backends, dbus-x11, fonts-liberation, fonts-dejavu, plymouth, plymouth-themes, openbox, konqueror, xterm, gimp, blender, claude-code, applesmc-next-dkms, battery-tray, chromium-browser-stable, tightvnc, kio-rsync, simplescreenrecorder, qpwgraph, curaengine, rsync, pavucontrol, openssh-server, bridge-utils, net-tools, sudo, curl, wget, git, htop, vim, bash-completion, build-essential, dkms, firmware-linux, nodejs
+Depends: xfce4, xfce4-goodies, lightdm, lightdm-gtk-greeter, xorg, pulseaudio, network-manager, network-manager-gnome, thunar, thunar-archive-plugin, mousepad, ristretto, file-roller, gvfs, gvfs-backends, dbus-x11, fonts-liberation, fonts-dejavu, plymouth, plymouth-themes, openbox, konqueror, xterm, gimp, blender, claude-code, applesmc-next-dkms, battery-tray, chromium-browser-stable, tightvnc, kio-rsync, simplescreenrecorder, qpwgraph, curaengine, rsync, pavucontrol, openssh-server, bridge-utils, net-tools, sudo, curl, wget, git, htop, vim, bash-completion, build-essential, dkms, nodejs
+Recommends: firmware-linux
 Maintainer: NetLinux <packages@netlinux.co.uk>
 Description: NetLinux Desktop meta-package
  Installs the complete NetLinux desktop stack: Xfce desktop environment,
  Chromium and Firefox browsers, GIMP, Blender, TightVNC, Claude Code,
  and essential system and development tools.
  .
- This is a meta-package that pulls in all dependencies for a
- NetLinux Desktop installation.
+ Also configures the NetLinux apt repository, enabling installation
+ of all NetLinux packages via apt.

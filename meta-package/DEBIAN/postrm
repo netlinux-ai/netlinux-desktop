@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+    purge)
+        rm -f /etc/apt/trusted.gpg.d/netlinux-repo.gpg
+        rm -f /etc/apt/sources.list.d/netlinux.list
+        ;;
+esac
+
+exit 0
